@@ -2,7 +2,7 @@
 
 ```python
 from bookshelf.models import Book
-Book.objects.all()
+Book.objects.get()
 ```
 
 # Expected Output

@@ -5,17 +5,20 @@ def list_books(request):
     books = Book.objects.all()
     return render(request, "relationship_app/list_books.html", {"books": books})
 
-from django.shortcuts import render
-from django.views.generic.detail import DetailView
-from .models import Book, Library
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView, LogoutView
 
-# Function-based view: List all books
-def list_books(request):
-    books = Book.objects.all()
-    return render(request, "relationship_app/list_books.html", {"books": books})
+# Registration View
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)   # Log in user after registration
+            return redirect("login")
+    else:
+        form = UserCreationForm()
 
-# Class-based view: Display library details
-class LibraryDetailView(DetailView):
-    model = Library
-    template_name = "relationship_app/library_detail.html"
-    context_object_name = "library"
+    return render(request, "relationship_app/register.html", {"form": form})

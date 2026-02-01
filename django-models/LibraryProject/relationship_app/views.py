@@ -12,15 +12,15 @@ from django.contrib.auth.decorators import user_passes_test
 from .models import UserProfile
 
 
-def is_admin(user):
+def check_admin(user):
     return user.userprofile.role == 'Admin'
 
 
-def is_librarian(user):
+def check_librarian(user):
     return user.userprofile.role == 'Librarian'
 
 
-def is_member(user):
+def check_member(user):
     return user.userprofile.role == 'Member'
 
 

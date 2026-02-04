@@ -18,18 +18,18 @@ class LibraryDetailView(DetailView):
 
 
 
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.shortcuts import redirect
-
 
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            return redirect('list_books')
+            login(request, user)  # automatically log in the user
+            return redirect('home')  # redirect to a homepage or library page
     else:
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
+

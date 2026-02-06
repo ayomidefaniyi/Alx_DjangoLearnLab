@@ -38,8 +38,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('books/add/', views.add_book, name='add_book'),
-    path('books/<int:book_id>/edit/', views.edit_book, name='edit_book'),
-    path('books/<int:book_id>/delete/', views.delete_book, name='delete_book'),
-    # Other URLs like list_books, login, register, etc.
+    path('add_book/', views.add_book, name='add_book'),
+    path('edit_book/', views.edit_book, name='edit_book'),
+    path('delete_book/', views.delete_book, name='delete_book'),
 ]

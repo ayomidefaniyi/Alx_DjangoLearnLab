@@ -4,9 +4,9 @@ from .models import Book
 
 
 @permission_required('bookshelf.can_view', raise_exception=True)
-def view_books(request):
+def book_list(request):
     books = Book.objects.all()
-    return render(request, 'bookshelf/view_books.html', {'books': books})
+    return render(request, 'bookshelf/book_list.html', {'books': books})
 
 
 @permission_required('bookshelf.can_create', raise_exception=True)
@@ -20,7 +20,7 @@ def create_book(request):
             author=author,
             published_date=published_date
         )
-        return redirect('view_books')
+        return redirect('book_list')
     return render(request, 'bookshelf/create_book.html')
 
 
@@ -32,7 +32,7 @@ def edit_book(request, book_id):
         book.author = request.POST.get('author')
         book.published_date = request.POST.get('published_date')
         book.save()
-        return redirect('view_books')
+        return redirect('book_list')
     return render(request, 'bookshelf/edit_book.html', {'book': book})
 
 
@@ -40,4 +40,4 @@ def edit_book(request, book_id):
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     book.delete()
-    return redirect('view_books')
+    return redirect('book_list')

@@ -41,3 +41,14 @@ def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     book.delete()
     return redirect('book_list')
+
+
+
+from .forms import ExampleForm
+
+
+def form_example(request):
+    form = ExampleForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    return render(request, 'bookshelf/form_example.html', {'form': form})

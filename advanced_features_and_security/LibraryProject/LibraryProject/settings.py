@@ -144,3 +144,26 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 ROOT_URLCONF = 'LibraryProject.urls'
+
+
+# ================== HTTPS & SECURITY CONFIGURATION ==================
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS)
+# Instructs browsers to only use HTTPS for 1 year
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Secure cookies (sent only over HTTPS)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Security headers to prevent common attacks
+X_FRAME_OPTIONS = "DENY"  # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME sniffing
+SECURE_BROWSER_XSS_FILTER = True  # Enable browser XSS filter
+
+# ================================================================

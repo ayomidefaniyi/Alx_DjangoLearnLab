@@ -76,14 +76,11 @@ WSGI_APPLICATION = 'django_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_blog_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -124,3 +121,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+TEMPLATES[0]['APP_DIRS'] = True
+
+LOGIN_REDIRECT_URL = 'profile'
+LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'

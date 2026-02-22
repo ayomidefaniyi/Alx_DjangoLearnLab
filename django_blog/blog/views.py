@@ -160,3 +160,20 @@ def search_posts(request):
         'posts': posts,
         'query': query
     })
+
+
+# ----------------------
+# Search View
+# ----------------------
+def search_view(request):
+    query = request.GET.get('q', '')  # Get search query from URL
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) |      # Search in title
+            Q(content__icontains=query) |    # Search in content
+            Q(tags__name__icontains=query)   # ✅ Search by tag names
+        ).distinct()
+    else:
+        posts = Post.objects.none()  # No query = empty result
+
+    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})

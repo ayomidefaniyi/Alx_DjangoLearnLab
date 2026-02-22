@@ -41,4 +41,5 @@ urlpatterns = [
     # Search URL
     # ==========================
     path('search/', views.search_posts, name='search'),
+    path('search/', views.search_view, name='search'),
 ]

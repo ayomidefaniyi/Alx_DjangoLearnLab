@@ -23,13 +23,10 @@ class Post(models.Model):
     content = models.TextField()
     published_date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    # 👇 ADD THIS LINE
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = TaggableManager()  # ✅ Add this for tagging
 
     def __str__(self):
         return self.title
-
 
 # ----------------------
 # Comment Model

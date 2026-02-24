@@ -23,11 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9o905^&#n($6_czox94l40ih2o6-_pqv$lbo@057#a8d#5^1sc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['your-domain.com', 'your-app.herokuapp.com']
 
-
+# Security Settings
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True   # Only if HTTPS is set up
 # Application definition
 
 INSTALLED_APPS = [
@@ -84,7 +88,11 @@ DATABASES = {
     }
 }
 
+import dj_database_url
 
+DATABASES = {
+    'default': dj_database_url.config(default='postgres://USER:PASSWORD@HOST:PORT/DBNAME')
+}
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -136,3 +144,7 @@ REST_FRAMEWORK = {
 }
 
 search_fields = ['title', 'content']
+
+heroku config:set SECRET_KEY='your-secret-key'
+heroku config:set DEBUG=False
+heroku config:set DATABASE_URL='your-database-url'

@@ -1,8 +1,19 @@
-from rest_framework import generics, status, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from django.contrib.contenttypes.models import ContentType
+
 from .models import Post, Like
+from .serializers import PostSerializer
 from notifications.models import Notification
+
+
+class FeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        following_users = self.request.user.following.all()
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
 
 
 class LikePostView(generics.GenericAPIView):
